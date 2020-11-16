@@ -1,0 +1,44 @@
+<app-header></app-header>
+
+<head>
+    <style>
+        .nav-image {
+            background-image: url('./assets/images/navimage2.jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+</head>
+
+<div class="container" *ngIf="!alreadyLoggedIn">
+    <h2><strong style="color:red">Already Logged In !</strong></h2>
+</div>
+
+<form #data="ngForm" *ngIf="alreadyLoggedIn">
+    <div class="container nav-image" style="width:500px;float:left;margin-left: 100px;margin-top:8%;padding-top:10%">
+        <br />
+        <h1><strong style="color: blanchedalmond;">Login Form</strong></h1>
+        <div class="form-group">
+            <label for="email" style="color: blanchedalmond;">Email</label>
+            <input type="email" name="email" [(ngModel)]="email" class="form-control" #uEmail="ngModel" email
+                required />
+        </div>
+        <span class="help-block" *ngIf="!uEmail.valid && uEmail.touched" class="alert alert-danger">
+            please enter valid email!
+        </span>
+        <br />
+
+        <div class="form-group">
+            <label for="password" style="color: blanchedalmond;">Password</label>
+            <input type="password" name="password" minlength=6 [(ngModel)]="password" class="form-control" required />
+        </div>
+        <br />
+
+        <div class="form-group">
+            <input type="submit" value="submit" class="btn btn-primary" (click)="validate()" [disabled]=!data.valid />
+            &nbsp;
+            <input type="submit" value="cancel" class="btn btn-danger" routerLink="/home" />
+        </div>
+    </div>
+</form>

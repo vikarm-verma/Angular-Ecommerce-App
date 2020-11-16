@@ -1,0 +1,59 @@
+<app-header></app-header>
+<head>
+  <style>
+  .overlay{
+    opacity:0.8;
+    background-image: url('./assets/images/furhd1.jpg');
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:70px;
+    left:0px;
+    z-index:1000;
+    background-repeat: no-repeat;
+}
+  </style>
+</head>
+<body >
+  <div class="container-block overlay">
+  <div class="container" style="width:500px;float:right;margin-right: 100px;padding-top:10%">
+    <!-- this is template driven form of angular where validation can be done on template's side -->
+    <div class="form-group">
+
+      <h1>Register Yourself</h1>
+
+      <form #data="ngForm">
+
+        <div class="form-group">
+          <label>Email</label>
+          <input class="form-control" type="email" name="emailBox" [(ngModel)]="user_email" #uEmail="ngModel"
+            required />
+          <span class="help-block" style="color:red" *ngIf="!uEmail.valid && uEmail.touched ">please enter valid
+            email!</span>
+          <span class="help-block" style="color:red" *ngIf="!isUserEmailValid">User is already registered</span>
+        </div>
+        <br />
+
+        <div class="form-group">
+          <label>Password</label>
+          <input class="form-control" minlength="6" type="password" name="passwordBox" [(ngModel)]="password" #uPass
+            required />
+        </div>
+        <br />
+
+        <div class="form-group">
+          <label>RePassword</label>
+          <input class="form-control" type="password" minlength="6" name="rePasswordBox" [(ngModel)]="repassword" #uPass
+            required />
+        </div>
+        <br />
+
+        <button type="submit" class="btn btn-primary" (click)="addUser()" [disabled]=!data.valid>Register</button>
+        &nbsp;
+        <button type="cancel" class="btn btn-danger" (click)="cancel()">Cancel</button>
+
+      </form>
+    </div>
+  </div>
+</div>
+</body>

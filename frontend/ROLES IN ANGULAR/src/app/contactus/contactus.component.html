@@ -1,0 +1,64 @@
+<app-header></app-header>
+
+<head>
+  <style>
+    .nav-image {
+      background-image: url('./assets/images/hdfur2.jpg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      margin-top: .5%;
+
+    }
+  </style>
+</head>
+
+
+<div class="container nav-image" style="margin-top:.5%;padding:10%">
+  <!-- Default form contact -->
+  <form class="form" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+
+    <p class="h2 mb-4"><strong style="color:blanchedalmond">Contact us</strong></p>
+
+    <!-- Name -->
+    <input type="text" formControlName="contactFormName" id="defaultContactFormName" mdbInput class="form-control mb-4"
+      placeholder="Name">
+
+    <!-- Email -->
+    <input type="email" formControlName="contactFormEmail" id="defaultContactFormEmail" mdbInput
+      class="form-control mb-4" placeholder="E-mail">
+
+    <!-- Subject -->
+    <label style="color:blanchedalmond">Subject</label>
+    <select formControlName="contactFormSubjects" class="browser-default custom-select mb-4">
+      <option value="" disabled>Choose option</option>
+      <option value="1" selected>Feedback</option>
+      <option value="2">Report a bug</option>
+      <option value="3">Feature request</option>
+      <option value="4">Feature request</option>
+    </select>
+
+    <!-- Message -->
+    <div class="form-group">
+      <textarea formControlName="contactFormMessage" class="form-control rounded-0" mdbInput
+        id="exampleFormControlTextarea2" rows="3" placeholder="Message"></textarea>
+    </div>
+
+    <!-- Copy -->
+    <mat-checkbox [checked]="true" class="mb-4" style="color:blanchedalmond">Send me a copy of this message
+    </mat-checkbox>&nbsp;&nbsp;
+
+    <!-- Send button -->
+    <button class="btn btn-warning" type="submit" [disabled]="disabledSubmitButton">Send</button>
+
+  </form>
+  <!-- Default form contact -->
+  <!-- <lib-ngx-image-zoom
+    [thumbImage]=myThumbnail
+    [fullImage]=myFullresImage
+    [magnification]=".5"
+    [enableScrollZoom]="true"
+    [enableLens]="true"
+    [lensWidth]="200"
+></lib-ngx-image-zoom> -->
+</div>

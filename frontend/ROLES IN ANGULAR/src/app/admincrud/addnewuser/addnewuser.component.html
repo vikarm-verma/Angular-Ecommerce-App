@@ -1,0 +1,53 @@
+<app-header></app-header>
+
+<!-- form for admin to add a new user with specific roles -->
+
+<body>
+    <br />
+    <div class="container" style="width:500px;float:left;margin-left: 100px;" *ngIf="sLength!=0">
+        <div class="form-group">
+            <h1>Admin User Add Page</h1>
+            <!-- this is template driven form so no controls registration required and 
+                  validation is also occuring here only -->
+            <form #data="ngForm">
+                <div class="form-group">
+
+                    <label>Email</label>
+                    <input class="form-control" type="email" name="emailBox" [(ngModel)]="user_email" #uEmail="ngModel"
+                        required />
+                    <span class="help-block" style="color:red" *ngIf="!uEmail.valid && uEmail.touched ">
+                        please enter valid email!</span>
+                    <span class="help-block" style="color:red" *ngIf="!isUserEmailValid">User is already
+                        registered</span>
+                </div>
+                <br />
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input class="form-control" minlength="6" type="password" name="passwordBox" [(ngModel)]="password"
+                        #uPass required />
+                </div>
+                <br />
+
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input class="form-control" type="password" minlength="6" name="rePasswordBox"
+                        [(ngModel)]="repassword" #uPass required />
+                </div>
+                <br />
+
+                <label for="roles">Roles:</label>
+                <select name="roles" class="form-control" (change)="changeRole($event)" #uRole>
+                    <option disabled>Select Role</option>
+                    <option *ngFor="let role of rolesList">{{role}}</option>
+                </select>
+                <br />
+
+                <button type="submit" class="btn btn-primary" (click)="addUser()" [disabled]=!data.valid>Add
+                    User</button>
+                <button type="cancel" class="btn btn-danger" routerLink="/admin">Cancel</button>
+
+            </form>
+        </div>
+    </div>
+</body>

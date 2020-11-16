@@ -1,0 +1,110 @@
+<app-header></app-header>
+
+<head>
+    <style>
+        .quick-img-zoom1 img {
+            transform-origin: 0 0;
+            transition: transform .25s, visibility .25s ease-in;
+        }
+
+        /* The Transformation */
+        .quick-img-zoom1:hover img {
+            transform: scale(10);
+        }
+    </style>
+</head>
+
+<div class="block" style="padding:10px" *ngIf='!isViewProduct'>
+    <mat-progress-spinner mode="indeterminate" *ngIf="showSnipper"
+        style="position:inherit;float:initial;margin-left: 50%;"></mat-progress-spinner>
+    <!-- here datatable dtOptions is used for showing search,sorted,pagination in a table 
+        *ngIf='flag && flag1==false'
+        *ngIf="showContent" -->
+    <table class="table dartable-striped table-bordered table-lg row-border hover" datatable [dtOptions]="dtOptions">
+        <thead>
+            <tr>
+                <th>PRODUCT ID</th>
+                <th>PRODUCT THUMB</th>
+                <th>NAME</th>
+                <th>CATEGORY</th>
+                <th>DESCRIPTION</th>
+                <th>PRICE</th>
+                <th>UNIT IN STOCK</th>
+                <th>ACTION</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- (click)="getValue($event)"-->
+            <tr *ngFor="let prdArray of productsArray">
+                <td>
+                    {{prdArray.product_id}}
+                </td>
+                <td>
+                    <div class="quick-img-zoom1">
+                        <img class="rounded-circle" alt="no product" [src]="getSantizeUrl(prdArray.product_image)"
+                            height="50px" width="50px" />
+                    </div>
+                </td>
+                <td>{{prdArray.product_name}}</td>
+                <td>{{prdArray.product_category}}</td>
+                <td>{{prdArray.product_description}}</td>
+                <td>{{prdArray.product_price}}</td>
+                <td>{{prdArray.unit_in_stock}}</td>
+                <td><button type="submit" class="btn btn-primary btn-sm" (click)="viewProduct(prdArray.product_id)"
+                        style="margin-left: 2px;">VIEW</button>
+                    <button type="submit" class="btn btn-secondary btn-sm" (click)="editProduct(prdArray.product_id)"
+                        style="margin-left: 2px;" *ngIf="role=='admin'">EDIT</button>
+                    <button type="submit" class="btn btn-danger btn-sm" (click)="deleteProduct(prdArray.product_id)"
+                        style="margin-left: 2px;" *ngIf="role=='admin'">DELETE</button> </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- When you click on view this form will get called -->
+<div class="container" *ngIf='isViewProduct'>
+    <mat-progress-spinner mode="indeterminate" *ngIf="showSnipper"
+        style="position:inherit;float:initial;margin-left: 50%;"></mat-progress-spinner>
+    <div class="page-header">
+        <h1>Product Detail</h1>
+        <p class="lead">Time to know something about product:</p>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 quick-img-zoom">
+                <img [src]="imageUrl" alt="image" style="width: 450px; height: 450px" />
+            </div>
+            <div class="col-md-5">
+                <h3>
+                    <b>{{productName}}</b>
+                </h3>
+                <p>
+                    <i>{{productDescription}}</i>
+                </p>
+                <p>
+                    <strong>Category</strong>: {{productCategory}}
+                </p>
+                <p><strong>Price</strong>:{{productPrice | currency}}</p>
+                <p><strong>Units In Stock</strong>:{{unitInStock}}</p>
+                <p><strong>Quantity</strong>:{{quantity}} &nbsp; &nbsp;
+                    <button type="button" class="btn btn-outline-info" (click)="increaseQuantity()">+</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-outline-info" (click)="decreaseQuantity()">-</button>
+                </p>
+                <p><strong>Total Amount</strong>:{{totalPrice | currency}}</p>
+                <div class="container">
+                    <button class="btn btn-danger btn-sm" (click)="cancelMethod()">
+                        <i class="material-icons">cancel_presentation</i>
+                        Cancel
+                    </button>|
+                    <button [disabled]="quantity==0 || isUserNull" type="submit" class="button btn-warning btn-sm"
+                        (click)="addProductToCart()">
+                        <i class="material-icons">shopping_cart</i>
+                        Add To Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

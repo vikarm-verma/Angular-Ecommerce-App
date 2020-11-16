@@ -1,0 +1,115 @@
+<app-header></app-header>
+
+<!-- this is profile form -->
+<style type="text/css">
+    #bgimg {
+        background-image: url('./assets/images/chair11.jpg');
+
+    }
+</style>
+<div id="bgimg" class="container" *ngIf="sLength!=0" style="float: inherit;">
+    <form class="form-group" [formGroup]="productForm" enctype="multipart/form-data">
+        <div style="float:left">
+            <label>
+                Product Name:
+            </label>
+            <input class="form-control" type="text" formControlName="productName" required [ngClass]="'errors'"
+                [pattern]=uProductPattern>
+            <div *ngIf="productName.errors" class="alert alert-danger">
+                <div *ngIf="productName.errors.required">
+                    Product Name Required.
+                </div>
+                <div *ngIf="productName.errors.pattern">
+                    Product Name Not Valid.
+                </div>
+            </div>
+            <br />
+            <label required [ngClass]="'errors'">
+                <p>Product Category:</p>
+                <input type="radio" id="chair" name="productCategory" value="chair" formControlName="productCategory">
+                <label for="Chair">Chair</label><br>
+                <input type="radio" id="doubleded" name="productCategory" value="doubleded"
+                    formControlName="productCategory">
+                <label for="doubleded">Double Bed</label><br>
+                <input type="radio" id="sofa" name="productCategory" value="sofa" formControlName="productCategory">
+                <label for="Sofa">Sofa</label><br>
+                <div *ngIf="productCategory.errors" class="alert alert-danger">
+                    <div *ngIf="productCategory.errors.required">
+                        category Required.
+                    </div>
+
+                </div>
+            </label>
+            <br />
+            <label>
+                Product Description
+            </label>
+            <textarea class="form-control" formControlName="productDescription" required
+                [ngClass]="'errors'"></textarea>
+            <div *ngIf="productDescription.errors" class="alert alert-danger">
+                <div *ngIf="productDescription.errors.required">
+                    Product Description is required
+                </div>
+            </div>
+            <br />
+
+            <br />
+            <label>
+                Product Price: </label>
+            <input type="text" class="form-control" type="textarea" formControlName="productPrice" required
+                [ngClass]="'errors'" [pattern]="uNumPattern" />
+            <div *ngIf="productPrice.errors" class="alert alert-danger">
+                <div *ngIf="productPrice.errors.required">
+                    Product price is required
+                </div>
+                <div *ngIf="productPrice.errors.pattern">
+                    only digits are allowed
+                </div>
+            </div>
+            <br />
+            <label>
+                Unit in stock:</label>
+            <input type="text" class="form-control" type="textarea" formControlName="unitInStock" required
+                [ngClass]="'errors'" [pattern]="uNumPattern" />
+            <div *ngIf="unitInStock.errors" class="alert alert-danger">
+                <div *ngIf="unitInStock.errors.required">
+                    Unit in stock is required
+                </div>
+                <div *ngIf="unitInStock.errors.pattern">
+                    only digits are allowed
+                </div>
+            </div>
+            <br />
+
+            <div class="container">
+
+                <button type="submit" class="form-control" class="btn btn-primary" type="submit" class="form-control"
+                    class="btn btn-primary" (click)="addProduct()" [disabled]="!productForm.valid " *ngIf="!isUpload">
+                    Add Product</button>
+
+                <button type="submit" class="form-control" class="btn btn-secondary" [disabled]="!productForm.valid"
+                    *ngIf="isUpdate" (click)="onUpdateProduct()">
+                    Update Product</button>
+
+                <button routerLink="/home" class="form-control" class="btn btn-danger">Cancel</button>
+            </div>
+        </div>
+
+        <!-- file upload div here user will upload image using angularFileUploader
+    its a bit tricky cause it was not replacing old image to new one instantly so
+    put a bit differnt logic with the help of boolean variables and two image controls -->
+
+        <div class="container" class="file-upload" style="position:relative;float:left;margin-top:20px;
+        margin-left:20px;padding:10px;height: 250px;width: 250px;">
+            <label>Upload Product Image</label>
+            <input class="form-control" formControlName="productImage" type="file" (change)="onSelectFile($event)"
+                id="fileInput" name="productImage" ng2FileSelect [uploader]="uploader"
+                accept="image/x-png,image/gif,image/jpeg" />
+            <img *ngIf="isOldImage && !isNewImage" [src]=imageUrl height="200"> <br />
+            <img *ngIf="!isOldImage && isNewImage" [src]=getSantizeUrl(imageShow) height="200"> <br />
+            <button type="button" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                Upload
+            </button>
+        </div>
+    </form>
+</div>

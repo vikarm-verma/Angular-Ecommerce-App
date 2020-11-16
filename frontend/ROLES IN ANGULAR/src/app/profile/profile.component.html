@@ -1,0 +1,82 @@
+<app-header></app-header>
+
+<!-- this is profile form -->
+
+<div class="container" *ngIf="sLength!=0">
+    <form class="form-group" [formGroup]="profileForm" (ngSubmit)="updateUserProfile()" enctype="multipart/form-data">
+        <div style="float:left;">
+            <label>
+                Name:
+            </label>
+            <input class="form-control" type="text" formControlName="userName" required [ngClass]="'errors'"
+                [pattern]=uNamePattern>
+            <div *ngIf="userName.errors" class="alert alert-danger">
+                <div *ngIf="userName.errors.required">
+                    User name required.
+                </div>
+                <div *ngIf="userName.errors.pattern">
+                    User name not valid.
+                </div>
+            </div>
+            <br />
+            <label>
+                Age:
+            </label>
+            <input class="form-control" type="number" formControlName="userAge">
+            <div *ngIf="userAge.errors" class="alert alert-danger">
+                only numbers allowed
+            </div>
+            <br />
+            <label>
+                Mobile:
+            </label>
+            <input class="form-control" type="text" formControlName="userMobile" maxlength="10">
+            <div *ngIf="userMobile.errors" class="alert alert-danger">
+                <div *ngIf="userMobile.errors.required">
+                    mobile number is required
+                </div>
+                <div *ngIf="userMobile.errors.pattern">
+                    mobile number should start from 7\8\9
+                </div>
+
+            </div>
+            <br />
+            <label>
+                <p>Please select your gender:</p>
+                <input type="radio" id="male" name="userGender" value="male" formControlName="userGender">
+                <label for="male">Male</label><br>
+                <input type="radio" id="female" name="userGender" value="female" formControlName="userGender">
+                <label for="female">Female</label><br>
+            </label>
+            <br />
+            <label>
+                Address:
+                <textarea class="form-control" type="textarea" formControlName="userAddress"></textarea>
+            </label>
+            <br />
+            <br />
+            <div class="container">
+                <button type="submit" class="form-control" class="btn btn-primary" *ngIf="!isUpdate"
+                    (click)="addUserProfile()">Save</button>
+                <button type="submit" class="form-control" class="btn btn-primary" *ngIf="isUpdate"
+                    [disabled]="isUpload || !profileForm.valid" (click)="updateUserProfile()">Update</button>|
+                <button routerLink="/home" class="form-control" class="btn btn-danger">Cancel</button>
+            </div>
+        </div>
+
+        <!-- file upload div here user will upload image using angularFileUploader
+             its a bit tricky cause it was not replacing old image to new one instantly so
+            put a bit differnt logic with the help of boolean variables and two image controls -->
+
+        <div class="container" class="file-upload" style="position: relative;float:inline-start;margin-top: 20px;">
+            <input class="form-control" formControlName="userImage" type="file" (change)="onSelectFile($event)"
+                id="fileInput" name="userImage" ng2FileSelect [uploader]="uploader"
+                accept="image/x-png,image/gif,image/jpeg" />
+            <img *ngIf="isOldImage && !isNewImage" [src]=getSantizeUrl(imageUrl) height="200"> <br />
+            <img *ngIf="!isOldImage && isNewImage" [src]="imageShow" height="200"> <br />
+            <button type="button" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                Upload
+            </button>
+        </div>
+    </form>
+</div>

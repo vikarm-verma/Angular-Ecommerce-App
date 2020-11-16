@@ -1,0 +1,113 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        a {
+            background-color: transparent;
+            color: blue;
+            padding: 1em 1.5em;
+            text-decoration: cornsilk;
+            text-transform: uppercase;
+        }
+
+        a:hover {
+            /* background-color:rgb(231, 231, 236); */
+            color: black;
+            border-radius: 20px;
+            box-shadow: 5px 10px 18px ivory;
+        }
+
+        a:active {
+            background-color: black;
+        }
+
+        a:visited {
+            background-color: transparent
+        }
+
+        .quick-img-zoom1 img {
+            transform-origin: 0 0;
+            transition: transform .85s, visibility .25s;
+        }
+
+        /* The Transformation */
+        .quick-img-zoom1:hover img {
+            transform: scale(4);
+            position: relative;
+        }
+
+        .nav-image {
+            background-image: url('./assets/images/gray1.jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+</head>
+
+<div class="nav-image container-block">
+    <nav class="navbar navbar-expand-md">
+        <a class="navbar-brand" routerLink="./home">ONLINE FURNITURE HUB</a>
+        <button class="container btn btn-online" type="submit" *ngIf="(!isAdminRole || isAdminRole) && isUserLoggedIn"
+            routerLink="/profile" style="font-style: italic;border-radius: 20px;
+    background-color:transparent;margin: inherit;width: 200px;">
+            <img class="rounded-circle" *ngIf="isUserLoggedIn" data-holder-rendered="true" alt="click here"
+                style="width:50px;height:50px;border: none;" [src]=imageUrl />
+            <b style="margin-left:4px; color:black ;font-size: 15;">{{userName|uppercase}}</b>
+
+        </button>
+
+        <div class="navbar-toggler">
+
+            <!-- a button which occurs when you resize page -->
+            <button style="background-color:dimgrey;" type="btn btn-secondary" data-toggle="collapse"
+                (click)="toggleNavbar()">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="container">
+
+            <div id="navbar" class="navbar-collapse collapse" style="float:right;
+        width:500px;margin:inherit" [ngClass]="{ 'show': navbarOpen }">
+                <div class="nav navbar-nav ml-auto">
+                    <a class="nav-item nav-link" routerLink="/home">Home </a>
+                    <a class="nav-item nav-link" routerLink="/contactus">Contact</a>
+                    <a class="nav-item nav-link" *ngIf="!isUserLoggedIn" routerLink="/register">Register</a>
+                    <li class="nav-item dropdown" *ngIf="isUserLoggedIn && isAdminRole">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Products / profile
+                        </a>
+                        <div class="dropdown-menu nav-image" aria-labelledby="navbarDropdown" style="border-radius: 20px;
+                    background-image: url('./assets/images/gray1.jpg');">
+                            <a class="nav-item nav-link" routerLink="/admin">{{role}}</a>
+                            <a class="nav-item nav-link" routerLink="/admin/addproduct">Add Product</a>
+                            <a class="nav-item nav-link" *ngIf="isAdminRole" routerLink="/productslist"
+                                id="dropdown01">Product Inventory</a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown" *ngIf="isUserLoggedIn && !isAdminRole">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            Shopping
+                        </a>
+                        <div class="dropdown-menu nav-image" aria-labelledby="navbarDropdown">
+                            <a class="nav-item nav-link" routerLink="/user" id="dropdown01">{{role}}</a>
+                            <a class="nav-item nav-link" *ngIf="!isAdminRole" routerLink="/productslist"
+                                id="dropdown01">Shop</a>
+                            <a class="nav-item nav-link" *ngIf="!isAdminRole" routerLink="/user/cart"
+                                id="dropdown01">Cart</a>
+                        </div>
+                    </li>
+                    <a class="nav-item nav-link" *ngIf="!isUserLoggedIn" routerLink="/login">Login</a>
+                    <a class="nav-item nav-link" *ngIf="isUserLoggedIn" routerLink="/login"
+                        (click)="logout()">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+</html>

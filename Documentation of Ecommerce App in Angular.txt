@@ -1,0 +1,198 @@
+Ecommerce App in Angular  
+
+Hey folks! this project is dedicated on user and admin 
+
+What user can do :-
+	1)user can register
+	2)can see his registration details and change/update password
+	3)can create his own profile with profile pic 
+	4)can update his profile details as well as picture
+	5)has no right to delete his own profile / registration details
+
+What admin can do:-
+	1)can see users
+	2)can add user with new role
+	3)can see his own registration details
+	4)while seeing users he can delete a particular user too
+	5)can update his own profile 
+	 
+BACKEND
+	1)my sql is there
+	2)has to create two tables in my sql 
+	3)has to enter admin record by your side with role as 'admin' 
+	4)if registers then it will be with 'user' role only
+	5)admin can add new users/employee ⁬with new role
+
+			1)registration table
+		+-----------------+-------------+------+-----+---------+----------------+----+
+		| Field           | Type        | Null | Key | Default | Extra                     |
+		+-----------------+-------------+------+-----+---------+----------------+----+
+		| user_reg_id     | int         | NO   | PRI | NULL    | auto_increment |
+		| user_email      | varchar(30) | NO   |     | NULL    |                       |
+		| user_password   | varchar(30) | NO   |     | NULL    |                   |
+		| user_repassword | varchar(30) | NO   |     | NULL    |                  |
+		| user_role       | varchar(30) | NO  |     | NULL    |                          |
+		+-----------------+-------------+------+-----+---------+----------------+-----+
+
+			2)user profile table having one to one relationship with registration table's user_reg_id
+		+-----------------+--------------+------+-----+---------+----------------+----+
+		| Field           | Type         | Null | Key | Default | Extra              |      |
+		+-----------------+--------------+------+-----+---------+----------------+----+
+		| user_profile_id | int          | NO   | PRI | NULL    | auto_increment |
+		| user_reg_id     | int          | NO   | UNI | NULL    |                            |
+		| user_name       | varchar(30)  | NO   |     | NULL    |                       |
+		| user_age        | int          | NO   |     | NULL    |                                 |
+		| user_mobile     | varchar(20)  | NO   |     | NULL    |                        |
+		| user_address    | varchar(50)  | NO   |     | NULL    |                       |
+		| user_gender     | varchar(10)  | NO   |     | NULL    |                        |
+		| user_image      | varchar(250) | NO   |     | NULL    |                       |
+		+-----------------+--------------+------+-----+---------+----------------+------+
+	6) Admin can add products in productstable
+
+		+---------------------+--------------+------+-----+---------+----------------+
+		| Field               | Type         | Null | Key | Default | Extra          |
+		+---------------------+--------------+------+-----+---------+----------------+
+		| product_id          | int          | NO   | PRI | NULL    | auto_increment |
+		| product_name        | varchar(100) | NO   |     | NULL    |                |
+		| product_category    | varchar(10)  | NO   |     | NULL    |                |
+		| product_description | varchar(500) | NO   |     | NULL    |                |
+		| product_price       | int          | NO   |     | NULL    |                |
+		| unit_in_stock       | int          | NO   |     | NULL    |                |
+		| product_image       | varchar(500) | NO   |     | NULL    |                |
+		+---------------------+--------------+------+-----+---------+----------------+
+
+	7)admin can do crud operation on that table too.
+	8)User can select product from productstable
+	9)User can add product into cart ,so cartitems table is there for :
+	
+		+---------------------+--------------+------+-----+---------+----------------+
+		| Field               | Type         | Null | Key | Default | Extra          |
+		+---------------------+--------------+------+-----+---------+----------------+
+		| cart_item_id        | int          | NO   | PRI | NULL    | auto_increment |
+		| product_id          | int          | NO   | MUL | NULL    |                |
+		| user_reg_id         | int          | NO   | MUL | NULL    |                |
+		| quantity            | int          | NO   |     | NULL    |                |
+		| total_price         | int          | NO   |     | NULL    |                |
+		| product_price       | int          | NO   |     | NULL    |                |
+		| product_name        | varchar(100) | NO   |     | NULL    |                |
+		| product_category    | varchar(100) | NO   |     | NULL    |                |
+		| product_description | varchar(100) | NO   |     | NULL    |                |
+		| unit_in_stock       | int          | NO   |     | NULL    |                |
+		| product_image       | varchar(100) | YES  |     | NULL    |                |
+		+---------------------+--------------+------+-----+---------+----------------+
+
+	10)User can checkout cart and can see invoice so invoice table is there
+		+------------------+--------------+------+-----+---------+----------------+
+		| Field            | Type         | Null | Key | Default | Extra          |
+		+------------------+--------------+------+-----+---------+----------------+
+		| invoice_id       | int          | NO   | PRI | NULL    | auto_increment |
+		| user_reg_id      | int          | NO   | MUL | NULL    |                |
+		| customer_details | varchar(300) | NO   |     | NULL    |                |
+		| purchased_date   | varchar(100) | NO   |     | NULL    |                |
+		| grand_total      | int          | NO   |     | NULL    |                |
+		+------------------+--------------+------+-----+---------+----------------+
+
+	11)While checking out and see invoice if user submit order then all cart items of cart table of the current user will move to carthistory table
+		+---------------------+--------------+------+-----+---------+-------+
+		| Field               | Type         | Null | Key | Default | Extra |
+		+---------------------+--------------+------+-----+---------+-------+
+		| cart_item_id        | int          | NO   |     | NULL    |       |
+		| product_id          | int          | NO   | MUL | NULL    |       |
+		| user_reg_id         | int          | NO   | MUL | NULL    |       |
+		| quantity            | int          | NO   |     | NULL    |       |
+		| total_price         | int          | NO   |     | NULL    |       |
+		| product_price       | int          | NO   |     | NULL    |       |
+		| product_name        | varchar(100) | YES  |     | NULL    |       |
+		| product_category    | varchar(100) | YES  |     | NULL    |       |
+		| product_description | varchar(100) | YES  |     | NULL    |       |
+		| unit_in_stock       | int          | NO   |     | NULL    |       |
+		| product_image       | varchar(100) | NO   |     | NULL    |       |
+		+---------------------+--------------+------+-----+---------+-------+
+
+	12)and grand total will save into another table named as cart 
+		+-------------+------+------+-----+---------+-------+
+		| Field       | Type | Null | Key | Default | Extra |
+		+-------------+------+------+-----+---------+-------+
+		| cart_id     | int  | NO   | PRI | NULL    |       |
+		| grand_total | int  | NO   |     | NULL    |       |
+		| user_reg_id | int  | NO   | MUL | NULL    |       |
+		+-------------+------+------+-----+---------+-------+
+
+
+MIDDLE WARE - 
+	for api we used node with express and others in it
+		1)need to install 
+			1)install node js after downloading it , create a folder -> go to the folder
+			2)npm init	
+			2)npm install	
+			3)install express -npm install express
+			4)install express file upload - npm i express-fileupload (this is help to upload your file into a static folder)
+			5)npm i mysql 
+			6)npm i multer  - In Express, middleware processes and transforms incoming requests to the server. In our case, Multer acts as a helper when uploading files.
+			7)npm i cors - this is for helping with CROSS ORIGIN REQUEST ACCESS	,which is very common while using api
+			8)npm i body-parser - Parses incoming request bodies in a middleware before your handlers, available under the req.body property.
+		2)we will create api after all such installation ,here name of js file is registrationwithroles.js , please see comments in api for its flow..
+		3)A bit bulky api is there , i preferred length instead of different parts of it
+			
+			
+FRONT END - 
+	Here we have angular framework and with Type script 
+	1)you need to create an angular project first using ng new [name of project] , then npm install for node_modules
+	2)npm install bootstrap - add bootstrap into angular.json file in styles array - "node_modules/bootstrap/dist/css/bootstrap.min.css"
+	3)create some components with ng g c [name of component]
+		project has some components 
+			1)register
+			2)login
+			3)logout
+			4)home
+			5)header
+			6)profile
+			7)admincrud ->addnewuser , addproduct
+			8)contactus
+			9)user->address,cart,invoice,paymentform
+			10)alert-dialog
+			11)confirm-dialog
+			12)productlist
+	4)it has a service folder which contains services , they are responsible for data manipulation ,api will connect from them 
+			1)userservice
+			2)profileservice
+			3)address
+			4)carthistory
+			5)cartservice
+			6)connection
+			7)invoice
+			8)productservice
+			9)usercart
+	5)one router file which will be responsible for routing the whole project
+	6)used angular material for showing dialog boxes and alert boxes 
+		ng add @angular/material
+		put this into app.module.ts - import {MatSliderModule} from '@angular/material/slider';
+					@NgModule ({....
+					  imports: [...,
+					  MatSliderModule,
+						…]
+						})
+	7)used search , pagination , sort table using angular datatable
+		npm install jquery --save
+		npm install datatables.net --save
+		npm install datatables.net-dt --save
+		npm install angular-datatables --save
+		npm install @types/jquery --save-dev
+		npm install @types/datatables.net --save-dev
+			styles array of angular.json should be like that :
+				"styles": [
+             					 "src/styles.css",
+            					  "node_modules/datatables.net-dt/css/jquery.dataTables.css",
+             					 "node_modules/bootstrap/dist/css/bootstrap.min.css",
+            					],
+           				 "scripts": [
+           					 "node_modules/jquery/dist/jquery.js",
+           					 "node_modules/datatables.net/js/jquery.dataTables.js",
+           					 "node_modules/bootstrap/dist/js/bootstrap.js",
+           					 ]
+
+	8)Admin can add products and apply crud operation on them too.Following same way to save image in an external folder , there mine is a bit hard corded 
+	9)User can view products ,can add a product into cart ,if added same then quantity will get increased without adding a new row ,used increment and decrement in cart view too to 	change quantity and the same can be reflected in productstable 
+	10)when user click on checkout ,it will ask to write address if user is first time purchasing item then he has to fill complete form but if he is an old user then he can get old form values 	and can update values , then inovoice will be there from here user can go back to cart or submit order.
+	11)after submit order user will be redirected to third party page for virutal payment , we can make it as a real payment for this it needs to integrate with node js and express.
+	12)For detailed commented on the spot documentation kindly follow  components files in frontend project.                                   

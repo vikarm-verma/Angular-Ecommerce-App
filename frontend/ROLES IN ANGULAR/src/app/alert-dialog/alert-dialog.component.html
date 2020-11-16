@@ -1,0 +1,10 @@
+<!-- this is a kind of template for showing dialog and passing title and message while using it 
+its a kind of dynamic dialog box -->
+
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content>
+  {{data.message}}
+</div>
+<div style="float:right;margin:20px;">
+  <input style="margin:0px 10px;" type="button" value="OK" [mat-dialog-close]="true">
+</div>

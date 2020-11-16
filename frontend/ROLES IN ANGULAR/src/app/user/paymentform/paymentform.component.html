@@ -1,0 +1,12 @@
+<app-header></app-header>
+<br />
+<h1>Thanks For the Business</h1>
+
+<!-- that is stripe payment form which will call by a js which is in ts file -->
+<strong>Grand Total :</strong> {{grandTotal|currency}}
+<div class="container mt-5">
+  <div class="row mt-5">
+    <div class="col-md-4">
+      <button (click)="pay(grandTotal)" class="btn btn-primary btn-block">Pay {{grandTotal|currency}}</button>
+    </div>
+  </div>

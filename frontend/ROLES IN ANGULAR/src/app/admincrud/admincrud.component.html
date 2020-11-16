@@ -1,0 +1,97 @@
+<app-header></app-header>
+
+<div class="container" *ngIf="!isUserAdmin">
+  <h2><strong style="color:red">Not Authorized !</strong></h2>
+</div>
+
+<div class="container" *ngIf="isUserAdmin">
+  <h2>Admin's page</h2>
+  <button type="submit" class="btn btn-primary" (click)="getAllUsers()" style="margin-left: 2px;">
+    {{toggleText}}
+  </button> |
+
+  <button type="submit" class="btn btn-primary" (click)="addUser()" style="margin-left: 2px;">
+    Add New User
+  </button> |
+
+  <button type="submit" class="btn btn-primary" routerLink="/user" style="margin-left: 2px;">
+    Your Reg Details
+  </button>
+</div>
+
+<br />
+<div class="container" *ngIf='flag && flag1==false'>
+  <!-- here datatable dtOptions is used for showing search,sorted,pagination in a table -->
+  <table class="table table-stripped table-bordered table-sm row-border hover" *ngIf="showContent" datatable="ng"
+    [dtOptions]="dtOptions">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>EMAIL</th>
+        <th>NAME</th>
+        <th>ROLE</th>
+        <th>PIC</th>
+        <th>ACTION</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of userProfileArray">
+        <td style="cursor: pointer;" (click)="getValue($event)">
+          <p style="font-size: large;color:blue"> <u>{{user.user_reg_id}}</u></p>
+        </td>
+        <td>{{user.user_email}}</td>
+        <td>{{user.user_name}}</td>
+        <td>{{user.user_role}}</td>
+        <td>
+          <img class="rounded-circle" alt="no profile" [src]="getSantizeUrl(user.user_image)" height="50px"
+            width="50px" />
+        </td>
+        <td><button type="submit" class="btn btn-primary" (click)="deleteUser(user.user_reg_id)"
+            style="margin-left: 2px;">delete user</button> </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ======================================================================================= -->
+<!-- this is another dynamic profie form with all disabled controls ,it is for admin for
+seeing user's profile but in disabled form -->
+
+<div class="container" *ngIf='flag1==true'>
+  <form class="form-group" [formGroup]="profileForm">
+    <div style="float:left;">
+      <label>
+        Name:
+        <input class="form-control" type="text" formControlName="userName" disabled>
+      </label>
+      <br />
+      <label>
+        Age:
+        <input class="form-control" type="text" formControlName="userAge" disabled>
+      </label>
+      <br />
+      <label>
+        Mobile:
+        <input class="form-control" type="text" formControlName="userMobile" disabled>
+      </label>
+      <br />
+      <label>
+        <p>Please select your gender:</p>
+        <input type="radio" id="male" name="userGender" value="male" formControlName="userGender" disabled>
+        <label for="male">Male</label><br>
+        <input type="radio" id="female" name="userGender" value="female" formControlName="userGender" disabled>
+        <label for="female">Female</label><br>
+      </label>
+      <br />
+      <label>
+        Address:
+        <textarea class="form-control" type="textarea" formControlName="userAddress" disabled></textarea>
+      </label>
+    </div>
+    <div style="float: right;margin-right: 300px;">
+      <!-- here imageUrl is passed in method which will sanitixe url , imageUrl is directly fetching image 
+      from local/static folder of node -->
+      <img class="rounded-circle" alt="no profile" [src]=imageUrl height="400px" width="400px" />
+    </div>
+  </form>
+</div>

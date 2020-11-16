@@ -1,0 +1,144 @@
+<app-header></app-header>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Just a simple demo of showing tooltip , if you want you can add tooltip to more images -->
+	<script>
+		$(document).ready(function () {
+			$('[data-toggle="tooltip"]').tooltip();
+		});
+	</script>
+	<style>
+		.nav-image {
+			background-image: url('./assets/images/navimage.jpg');
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+
+		.overlay {
+			opacity: 0.8;
+			background-image: url('./assets/images/furhd1.jpg');
+			position: fixed;
+			width: 100%;
+			height: 100%;
+			top: 70px;
+			left: 0px;
+			z-index: 1000;
+			background-repeat: no-repeat;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container-block" height="700px" width="100%">
+		<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+			<ol class="carousel-indicators">
+				<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+				<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+				<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+			</ol>
+			<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev"> <span
+					class="carousel-control-prev-icon" aria-hidden="true"></span> <span class="sr-only">Previous</span>
+			</a> <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span> <span class="sr-only">Next</span>
+			</a>
+			<div class="carousel-inner">
+				<div id="my-carousel-bg" class="carousel-item active">
+					<a href="./productslist"> <img src="./assets/images/sofa11.jpg" alt="First slide"
+							style="height: 700px; width: 100%">
+					</a>
+				</div>
+				<div class="carousel-item">
+					<a href="./productslist"> <img src="./assets/images/chair8.jpg" alt="Second slide"
+							style="height: 700px; width: 100%">
+					</a>
+				</div>
+				<div class="carousel-item">
+					<a href="./productslist"> <img src="./assets/images/doublebed11.jpg" alt="Third slide"
+							style="height: 700px; width: 100%">
+					</a>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+	<hr />
+
+	<div class="row" style="margin-left: 5%" routerlink="./productslist">
+		<div class="span"
+			style="height: 350px; width: 250px; margin-top: 10px; margin-left: 10px; position: relative; background-color: white;">
+			<a href="./productslist" >
+				<!-- Showing this image from project's assets's images folder so these images must be present in this folder only -->
+				<img class="hoverable" src="./assets/images/chair9.jpg" alt="Second slide"
+					style="height: 320px; width: 240px; border-radius: 25px; padding: 10px;">
+			</a>
+		</div>
+		<div class="span"
+			style="height: 350px; width: 250px; margin-top: 10px; margin-left: 10px; position: relative; background-color: white;">
+			<a href="./productslist"> <img src="./assets/images/chair12.jpg" alt="Second slide"
+					style="height: 320px; width: 240px; border-radius: 25px; padding: 10px;"></a>
+		</div>
+		<div class="span"
+			style="height: 350px; width: 250px; margin-top: 10px; margin-left: 10px; position: relative; background-color: white;">
+			<a href="./productslist"> <img src="./assets/images/chair8.jpg" alt="Second slide"
+					style="height: 320px; width: 240px; border-radius: 25px; padding: 10px;"></a>
+		</div>
+		<div class="span"
+			style="height: 350px; width: 250px; margin-top: 10px; margin-left: 10px; position: relative; background-color: white;">
+			<a href="./productslist"> <img src="./assets/images/chair6.jpg" alt="Second slide"
+					style="height: 320px; width: 240px; border-radius: 25px; padding: 10px;"></a>
+		</div>
+		<div class="span"
+			style="height: 350px; width: 250px; margin-top: 10px; margin-left: 10px; position: relative; background-color: white;">
+			<a href="./productslist"> <img src="./assets/images/chair10.jpg" alt="Second slide"
+					style="height: 320px; width: 240px; border-radius: 25px; padding: 10px;"></a>
+		</div>
+	</div>
+
+	<hr />
+
+	<div class="row">
+		<div class="col-sm"
+			style="height: 350px; width: 250px; margin-top: 10px; margin-left: 10px; background-color: white;">
+			<a href="./productslist"> <img src="./assets/images/sofa3.jpg" alt="Second slide"
+					style="height: 320px; width: 340px; border-radius: 25px; border-right: 5px solid grey; border-left: 5px solid grey; padding: 10px;"></a>
+		</div>
+
+		<div class="col-sm"
+			style="height: 350px; width: 350px; margin-top: 10px; margin-left: 10px; background-color: white;">
+			<a href="./productslist"> <img src="./assets/images/sofa6.jpg" alt="Second slide"
+					style="height: 320px; width: 340px; border-radius: 25px; padding: 10px; border-right: 5px solid grey; border-left: 5px solid grey;"></a>
+		</div>
+		<div class="col-sm"
+			style="height: 350px; width: 350px; margin-top: 10px; margin-left: 10px; background-color: white;">
+			<a href="./productslist"> <img src="./assets/images/sofa9.jpg" alt="Second slide"
+					style="height: 320px; width: 340px; border-radius: 25px; padding: 10px; border-right: 5px solid grey; border-left: 5px solid grey;"></a>
+		</div>
+	</div>
+
+	<hr />
+	<div class="row">
+		<div class="col-sm"
+			style="height: 350px; width: 250px; margin-top: 10px; margin-left: 10px; background-color: white;">
+			<a href="./productslist"> <img src="./assets/images/doublebed11.jpg" alt="Second slide"
+					style="height: 320px; width: 340px; border-radius: 25px; padding: 10px; border-right: 5px solid grey; border-left: 5px solid grey;"></a>
+		</div>
+		<div class="col-sm"
+			style="height: 350px; width: 350px; margin-top: 10px; margin-left: 10px; background-color: white;">
+			<a href="./productslist"> <img src="./assets/images/doublebed8.jpg" alt="Second slide"
+					style="height: 320px; width: 340px; border-radius: 25px; padding: 10px; border-right: 5px solid grey; border-left: 5px solid grey;"></a>
+		</div>
+		<div class="col-sm" data-toggle="tooltip" data-placement="top" title="King size bed for real Kings"
+			style="height: 350px; width: 350px; margin-top: 10px; margin-left: 10px; background-color: white;">
+			<a href="./productslist"> <img src="./assets/images/doublebed10.jpg" alt="Second slide"
+					style="height: 320px; width: 340px; border-radius: 25px; padding: 10px; border-right: 5px solid grey; border-left: 5px solid grey;"></a>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,98 @@
+<app-header></app-header>
+
+<br />
+
+<div class="container">
+  <button type="submit" class="btn btn-primary" (click)="getSingleUser()" style="margin-left: 2px;"
+    *ngIf='!updateUserDiv'>
+    {{toggleText}}
+  </button>
+</div>
+
+<div class="container" *ngIf='flag'>
+  <h3><strong><u>User Data</u></strong></h3>
+  <table class="table table-dark">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>EMAIL</th>
+        <th>IMAGE</th>
+        <th>ACTION</th>
+      </tr>
+    </thead>
+
+    <!--used ng-container for showing data and image-->
+    <tr *ngFor="let user of userArray">
+      <ng-container *ngIf="user.user_email==userEmail">
+        <td>{{user.user_reg_id}}</td>
+        <td>{{user.user_email|uppercase}}</td>
+        <td><img alt="user image" [src]=imageUrl height="100px" width="100px" /></td>
+        <td><button type="submit" class="btn btn-warning btn-sm" (click)="updateUser(user.user_reg_id)">Update User</button>
+        </td>
+      </ng-container>
+    </tr>
+  </table>
+</div>
+
+
+<!-- second form of this page which will work when user clicks on update  -->
+<div class="container" *ngIf='updateUserDiv'>
+  <form #data="ngForm">
+    <div class="form-group">
+      <table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">EMAIL</th>
+            <th scope="col">PASSWORD</th>
+            <th scope="col">REPASSWORD</th>
+            <th scope="col">ROLE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of allUsers">
+            <td>
+              <div class="form-group">
+                <input class="form-control" type="text" name="regId" value={{user.user_reg_id}} [(ngModel)]=regId
+                  disabled />
+              </div>
+            </td>
+            <td>
+              <div class="form-group">
+                <input class="form-control" type="text" value={{user.user_email}} disabled />
+              </div>
+            </td>
+            <td>
+              <div class="form-group">
+                <input class="form-control" type="password" value={{user.user_password}} minlength="6"
+                  name="passwordBox" [(ngModel)]="password" #uPass required />
+              </div>
+            </td>
+            <td>
+              <div class="form-group">
+                <input class="form-control" type="password" value={{user.user_repassword}} minlength="6"
+                  name="rePasswordBox" [(ngModel)]="rePassword" #uPass required />
+              </div>
+            </td>
+            <td>
+              <div class="form-group">
+                <input type="text" class="form-control" value={{user.user_role}} #userRole disabled />
+              </div>
+            </td>
+            <td>
+              <button type="submit" class="btn btn-primary" [disabled]=!data.valid (click)="submit()"
+                style="margin-left: 2px;">
+                Submit
+              </button>
+            </td>
+            <td>
+              <button type="submit" class="btn btn-danger" routerLink="/home" style="margin-left: 2px;">
+                Cancel
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </form>
+</div>

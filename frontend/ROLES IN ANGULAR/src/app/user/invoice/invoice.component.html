@@ -1,0 +1,102 @@
+<app-header></app-header>
+
+<head>
+	<style>
+		/* creaing style for zooming image */
+		/* Quick-zoom Container */
+		.quick-img-zoom img {
+			transform-origin: 0 0;
+			transition: transform .15s, visibility .15s ease-in;
+		}
+
+		/* The Transformation */
+		.quick-img-zoom:hover img {
+			transform: scale(5);
+		}
+	</style>
+</head>
+
+<div class="container" style="padding: 10%; text-transform: uppercase">
+	<mat-progress-spinner mode="indeterminate" *ngIf="showSnipper"
+		style="position:inherit;float:initial;margin-left: 50%;"></mat-progress-spinner>
+
+		<h5>Date:<b>{{date| date:'medium'}}</b></h5>
+	<h2 style="margin-left:45%;color:grey"><b>Invoice</b></h2>
+	<form class="form-horizontal">
+		<div class="page-header row" style="margin-top:30px" *ngFor="let aa of addressArray">
+			<div class="span">
+				<h1>{{aa.full_name}}</h1>
+			</div>
+		</div>
+		<div class="page-header row" style="margin-top:30px;float:right" *ngFor="let ua of userArray">
+			<div class="span">
+				<h1>{{ua.user_mobile}}</h1>
+			</div>
+		</div>
+		<div class="span">
+
+
+			<div class="row" *ngFor="let ia of addressArray">
+				<div class="span">
+					<address>
+						<strong> Address</strong><br />
+						{{ia.full_name}}
+						{{ia.street_address1}}
+						{{ia.street_address2}}
+						{{ia.city}}
+						{{ia.state}}
+						{{ia.zip_code}}
+					</address>
+				</div>
+			</div>
+
+			<table class="table">
+				<thead>
+					<tr>
+						<td scope="col"><b>Product Image</b></td>
+						<td scope="col"><b>Product Name</b></td>
+						<td scope="col"><b>Quantity</b></td>
+						<td scope="col"><b>Price</b></td>
+						<td scope="col"><b>Total</b></td>
+						
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let ca of this.cartArray">
+						<td><img class="quick-img-zoom" [src]="ca.product_image" alt="no image" height="50px"
+								width="50px" /></td>
+						<td><em>{{ca.product_name}}</em></td>
+						<td>{{ca.quantity}}</td>
+						<td>{{ca.product_price}}</td>
+						<td>{{ca.total_price}}</td>
+					</tr>
+					<tr>
+
+						<td colspan="2">
+							<h4>
+								<strong>Grand Total:</strong>
+							</h4>
+						</td>
+						<td colspan="2" class="text-center text-danger">
+							<h4>
+								<strong>{{grandTotal}}</strong>
+							</h4>
+						</td>
+					</tr>
+
+				</tbody>
+			</table>
+
+			<input type="hidden" />
+
+			<button class="button btn-secondary btn-sm" routerLink="/user/address">Back</button>
+			&nbsp;
+			<input type="submit" value="Submit Order" class="button btn-primary btn-sm"
+				(click)="insertIntoCartHistory()" routerLink="/user/paymentform" />
+				&nbsp;
+			<button type="submit" class="button btn-danger btn-sm" routerLink="/user/cart">Cancel</button>
+		</div>
+
+	</form>
+</div>
+a
